@@ -2,46 +2,68 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Pick Your Gift!</title>
 
 <style>
-    body {
+    * {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
         margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
         background: #000;
         font-family: Arial, sans-serif;
-        overflow-x: hidden;
-        text-align: center;
     }
 
+    /* Full-page background image (covers entire screen on all devices) */
+    .bg {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 100vw;
+        height: 100vh;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        object-position: center;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Layer above background that holds interactive regions */
     .container {
-        position: relative;
-        max-width: 450px;
-        margin: auto;
-    }
-
-    .main-img {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        display: block;
-        user-select: none;
-        -webkit-user-drag: none;
+        height: 100%;
+        z-index: 5;
     }
 
+    /* Responsive gift hotspots */
     .gift-wrapper {
         position: absolute;
-        width: 80px;
-        height: 80px;
+        width: 18vw;
+        height: 18vw;
+        max-width: 110px;
+        max-height: 110px;
         transform: translate(-50%, -50%);
         perspective: 900px;
         transition: opacity 0.3s ease;
     }
 
+    /* Flip card */
     .gift-card {
         width: 100%;
         height: 100%;
         position: relative;
         transform-style: preserve-3d;
-        transition: transform 0.6s;
+        transition: transform 0.6s ease;
         cursor: pointer;
     }
 
@@ -49,6 +71,7 @@
         transform: rotateY(180deg);
     }
 
+    /* Card faces */
     .front, .back {
         position: absolute;
         width: 100%;
@@ -58,7 +81,8 @@
     }
 
     .front {
-        background: transparent;
+        background: rgba(255,255,255,0); /* fully clickable but invisible */
+        pointer-events: auto;
     }
 
     .back {
@@ -67,23 +91,29 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 18px;
-        padding: 6px;
+        font-size: clamp(12px, 3.5vw, 22px); /* AUTO-SCALES TEXT */
         font-weight: bold;
+        padding: 6px;
         text-align: center;
     }
 
+    /* Disable other gifts after picking */
     .disabled .gift-card {
         pointer-events: none;
         opacity: 0.25;
     }
 </style>
 </head>
+
 <body>
 
-<div class="container">
-    <img src="Instant.JPG" class="main-img">
+<!-- FULL SCREEN BACKGROUND IMAGE -->
+<img src="Instant.JPG" class="bg">
 
+<!-- CLICKABLE HOTSPOTS CONTAINER -->
+<div class="container">
+
+    <!-- CHRISTMAS TREE -->
     <div class="gift-wrapper" style="top:22%; left:18%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -91,6 +121,7 @@
         </div>
     </div>
 
+    <!-- SANTA HAT -->
     <div class="gift-wrapper" style="top:23%; left:82%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -98,6 +129,7 @@
         </div>
     </div>
 
+    <!-- GINGERBREAD MAN -->
     <div class="gift-wrapper" style="top:42%; left:18%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -105,6 +137,7 @@
         </div>
     </div>
 
+    <!-- SNOWMAN -->
     <div class="gift-wrapper" style="top:42%; left:82%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -112,6 +145,7 @@
         </div>
     </div>
 
+    <!-- HOT COCOA -->
     <div class="gift-wrapper" style="top:61%; left:18%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -119,6 +153,7 @@
         </div>
     </div>
 
+    <!-- CANDY CANE -->
     <div class="gift-wrapper" style="top:61%; left:82%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -126,6 +161,7 @@
         </div>
     </div>
 
+    <!-- FLASH HERO -->
     <div class="gift-wrapper" style="top:75%; left:55%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -140,15 +176,13 @@ let hasPicked = false;
 
 function pickGift(card) {
     if (hasPicked) return;
-    hasPicked = true;
 
+    hasPicked = true;
     card.classList.add("flipped");
 
     document.querySelectorAll(".gift-wrapper").forEach(wrapper => {
         const child = wrapper.querySelector(".gift-card");
-        if (child !== card) {
-            wrapper.classList.add("disabled");
-        }
+        if (child !== card) wrapper.classList.add("disabled");
     });
 }
 </script>
