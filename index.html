@@ -81,8 +81,7 @@
         }
 
         .prize-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
+            display: none;
         }
 
         .prize-title {
@@ -177,37 +176,30 @@
     <script>
         const gifts = {
             gingerbread: {
-                icon: '🍪',
                 title: 'Gingerbread Man',
                 value: '$10 Freeplay'
             },
             candycane: {
-                icon: '🍬',
                 title: 'Candy Cane',
                 value: '$5 Add-on Next Deposit'
             },
             hotcocoa: {
-                icon: '☕',
                 title: 'Hot Cocoa',
                 value: '$15 Add-on Next Deposit'
             },
             santahat: {
-                icon: '🎅',
                 title: 'Santa Hat',
                 value: '25% Match on Next Deposit'
             },
             snowman: {
-                icon: '⛄',
                 title: 'Snowman',
                 value: '$5 Freeplay'
             },
             christmastree: {
-                icon: '🎄',
                 title: 'Christmas Tree',
                 value: '$3 Freeplay'
             },
             flash: {
-                icon: '⚡',
                 title: 'The Flash',
                 value: '50% Bonus on Next Deposit'
             }
@@ -223,7 +215,7 @@
         let hasChosen = false;
 
         // Image file in the same directory as this HTML file
-        bgImage.src = './instant-gaming.jpg';
+        bgImage.src = './Instant.JPG';
 
         // Check if user has already chosen
         async function checkIfChosen() {
@@ -252,7 +244,6 @@
 
         function showPrize(giftId) {
             const gift = gifts[giftId];
-            prizeIcon.textContent = gift.icon;
             prizeTitle.textContent = gift.title;
             prizeValue.textContent = gift.value;
             overlay.classList.add('show');
