@@ -27,7 +27,6 @@
         -webkit-user-drag: none;
     }
 
-    /* Gift hotspot containers */
     .gift-wrapper {
         position: absolute;
         width: 80px;
@@ -37,7 +36,6 @@
         transition: opacity 0.3s ease;
     }
 
-    /* The flip card */
     .gift-card {
         width: 100%;
         height: 100%;
@@ -47,12 +45,10 @@
         cursor: pointer;
     }
 
-    /* Apply flip */
     .gift-card.flipped {
         transform: rotateY(180deg);
     }
 
-    /* Front & back faces */
     .front, .back {
         position: absolute;
         width: 100%;
@@ -62,7 +58,7 @@
     }
 
     .front {
-        background: transparent; /* invisible hotspot */
+        background: transparent;
     }
 
     .back {
@@ -77,21 +73,17 @@
         text-align: center;
     }
 
-    /* Disable other gifts */
     .disabled .gift-card {
         pointer-events: none;
         opacity: 0.25;
     }
-
 </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- Your main image -->
-    <img src="/Instant.JPG" class="main-img">
+    <img src="Instant.JPG" class="main-img">
 
-    <!-- CHRISTMAS TREE -->
     <div class="gift-wrapper" style="top:22%; left:18%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -99,7 +91,6 @@
         </div>
     </div>
 
-    <!-- SANTA HAT -->
     <div class="gift-wrapper" style="top:23%; left:82%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -107,7 +98,6 @@
         </div>
     </div>
 
-    <!-- GINGERBREAD MAN -->
     <div class="gift-wrapper" style="top:42%; left:18%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -115,7 +105,6 @@
         </div>
     </div>
 
-    <!-- SNOWMAN -->
     <div class="gift-wrapper" style="top:42%; left:82%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -123,7 +112,6 @@
         </div>
     </div>
 
-    <!-- HOT COCOA -->
     <div class="gift-wrapper" style="top:61%; left:18%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -131,7 +119,6 @@
         </div>
     </div>
 
-    <!-- CANDY CANE -->
     <div class="gift-wrapper" style="top:61%; left:82%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -139,7 +126,6 @@
         </div>
     </div>
 
-    <!-- FLASH HERO -->
     <div class="gift-wrapper" style="top:75%; left:55%;">
         <div class="gift-card" onclick="pickGift(this)">
             <div class="front"></div>
@@ -153,13 +139,11 @@
 let hasPicked = false;
 
 function pickGift(card) {
-    if (hasPicked) return; // Don't allow multiple picks
+    if (hasPicked) return;
     hasPicked = true;
 
-    // Flip the selected gift
     card.classList.add("flipped");
 
-    // Disable all other gifts
     document.querySelectorAll(".gift-wrapper").forEach(wrapper => {
         const child = wrapper.querySelector(".gift-card");
         if (child !== card) {
